@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp Playbook — WhiskeyRiverMedia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#040404;
+  --card:#0c0c0c;
+  --card2:#111;
+  --green:#25D366;
+  --glow-color:rgba(37,211,102,0.35);
+  --glow:0 0 28px rgba(37,211,102,0.35);
+  --border:rgba(37,211,102,0.18);
+  --white:#f2f2f2;
+  --grey:#777;
+  --fd:'Bebas Neue',sans-serif;
+  --fb:'DM Sans',sans-serif;
+  --fm:'JetBrains Mono',monospace;
+  --r:8px;
+  --mw:860px;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:var(--fb);
+  font-size:16px;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+/* scanline */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px);
+  pointer-events:none;z-index:9999;
+}
+
+/* dot grid */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:radial-gradient(circle,rgba(37,211,102,0.06) 1px,transparent 1px);
+  background-size:30px 30px;
+  pointer-events:none;z-index:0;
+}
+
+.wrap{max-width:var(--mw);margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* ── HERO ── */
+.hero{padding:72px 0 48px;text-align:center}
+
+.badge{
+  display:inline-block;
+  border:1px solid var(--green);
+  color:var(--green);
+  font-family:var(--fm);
+  font-size:10px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  padding:5px 14px;
+  border-radius:2px;
+  margin-bottom:28px;
+  box-shadow:var(--glow),inset 0 0 16px rgba(37,211,102,0.04);
+}
+
+.hero-head{
+  font-family:var(--fd);
+  font-size:clamp(40px,9vw,86px);
+  line-height:1;
+  letter-spacing:.02em;
+  margin-bottom:8px;
+}
+.hero-head .dim{color:rgba(242,242,242,0.25)}
+.hero-head .lit{
+  color:var(--green);
+  text-shadow:0 0 30px rgba(37,211,102,0.9),0 0 70px rgba(37,211,102,0.4);
+}
+
+.hero-sub{
+  font-family:var(--fd);
+  font-size:clamp(18px,3.5vw,28px);
+  letter-spacing:.06em;
+  color:rgba(242,242,242,0.35);
+  margin-bottom:30px;
+}
+
+.meta{
+  display:flex;justify-content:center;flex-wrap:wrap;
+  gap:6px 20px;
+  font-family:var(--fm);font-size:10px;
+  color:var(--grey);letter-spacing:.1em;text-transform:uppercase;
+}
+.meta .dot{color:var(--green)}
+
+.hr-line{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  opacity:.35;margin:44px 0;
+}
+
+/* ── STATS ── */
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;margin-bottom:52px;
+}
+.stat{background:var(--card);padding:24px 16px;text-align:center;transition:background .2s}
+.stat:hover{background:var(--card2)}
+.stat-n{
+  font-family:var(--fd);font-size:clamp(36px,7vw,58px);
+  color:var(--green);line-height:1;
+  text-shadow:var(--glow);letter-spacing:.02em;
+}
+.stat-n.dim-num{color:rgba(242,242,242,0.3)}
+.stat-l{font-family:var(--fm);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);margin-top:6px}
+
+/* ── TLDR ── */
+.tldr{
+  border:1px solid var(--green);border-radius:var(--r);
+  background:rgba(37,211,102,0.04);
+  padding:32px 28px;margin-bottom:52px;
+  box-shadow:var(--glow);position:relative;overflow:hidden;
+}
+.tldr::before{
+  content:'TL;DR';
+  position:absolute;top:-1px;left:24px;
+  font-family:var(--fd);font-size:10px;letter-spacing:.2em;
+  color:var(--bg);background:var(--green);
+  padding:2px 10px;line-height:20px;
+}
+.tldr-h{font-family:var(--fd);font-size:26px;letter-spacing:.04em;margin-bottom:14px;margin-top:6px}
+.tldr p{color:#bbb;font-size:15px;margin-bottom:12px}
+.tldr p:last-child{margin-bottom:0}
+.tldr strong{color:var(--green);font-weight:600}
+
+/* ── TOC ── */
+.toc{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:22px 24px;margin-bottom:52px;
+}
+.toc-t{font-family:var(--fm);font-size:10px;letter-spacing:.25em;color:var(--green);text-transform:uppercase;margin-bottom:14px}
+.toc-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:2px;list-style:none}
+.toc-l li a{color:#888;text-decoration:none;font-size:14px;padding:4px 0;display:block;transition:color .2s}
+.toc-l li a:hover{color:var(--green)}
+.toc-l li a::before{content:'→ ';color:var(--green);font-size:11px}
+
+/* ── SECTION ── */
+.sec{margin-bottom:60px;opacity:0;transform:translateY(26px);transition:opacity .5s ease,transform .5s ease}
+.sec.vis{opacity:1;transform:none}
+.sh{display:flex;align-items:baseline;gap:12px;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid rgba(37,211,102,0.12)}
+.sn{font-family:var(--fm);font-size:10px;color:var(--green);letter-spacing:.2em}
+.st{font-family:var(--fd);font-size:clamp(22px,4vw,34px);letter-spacing:.04em;color:var(--white);line-height:1.1}
+.sec p{color:#bbb;margin-bottom:14px;font-size:15px}
+.sec p strong,.sec p .em{color:var(--green);font-weight:600}
+
+.callout{
+  background:var(--card2);border-left:3px solid var(--green);
+  padding:14px 20px;border-radius:0 var(--r) var(--r) 0;margin:18px 0;
+  font-size:15px;color:#bbb;
+}
+.callout strong{color:var(--white)}
+
+/* ── COMPARISON ── */
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:6px}
+.cmp-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px;transition:box-shadow .25s}
+.cmp-card:hover{box-shadow:var(--glow)}
+.cmp-card.hi{border-color:var(--green)}
+.cmp-lbl{font-family:var(--fd);font-size:20px;letter-spacing:.08em;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.cmp-lbl .tag{font-family:var(--fm);font-size:9px;letter-spacing:.18em;color:var(--bg);background:var(--green);padding:2px 7px;border-radius:2px;align-self:center}
+.cmp-row{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px}
+.cmp-row:last-child{border-bottom:none}
+.ck{color:var(--grey);min-width:80px;font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.08em;padding-top:1px;flex-shrink:0}
+.cv{color:#ddd}
+.cv .hi2{color:var(--green);font-weight:500}
+
+/* ── TRIGGERS ── */
+.trig-grid{display:flex;flex-direction:column;gap:12px}
+.trig{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:22px 26px;display:flex;align-items:flex-start;gap:22px;
+  transition:box-shadow .25s,border-color .25s;
+}
+.trig:hover{border-color:var(--green);box-shadow:var(--glow)}
+.trig-n{font-family:var(--fd);font-size:64px;color:var(--green);line-height:1;text-shadow:var(--glow);min-width:56px;opacity:.5;transition:opacity .25s}
+.trig:hover .trig-n{opacity:1}
+.trig-body h3{font-family:var(--fd);font-size:18px;letter-spacing:.05em;margin-bottom:6px;color:var(--white)}
+.trig-body p{font-size:14px;color:#999;line-height:1.6;margin:0}
+
+/* ── FUNNEL ── */
+.fnl{display:flex;flex-direction:column;gap:0}
+.fnl-step{display:flex;gap:18px;align-items:flex-start}
+.fnl-lft{display:flex;flex-direction:column;align-items:center;min-width:38px}
+.fnl-dot{
+  width:38px;height:38px;border-radius:50%;
+  border:2px solid var(--green);background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fd);font-size:17px;color:var(--green);
+  text-shadow:var(--glow);box-shadow:0 0 14px rgba(37,211,102,0.3);
+  flex-shrink:0;z-index:1;
+}
+.fnl-line{width:2px;flex:1;min-height:28px;background:linear-gradient(to bottom,var(--green),transparent);opacity:.25}
+.fnl-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:14px 18px;margin-bottom:8px;flex:1;
+}
+.fnl-card h3{font-family:var(--fd);font-size:18px;letter-spacing:.06em;color:var(--green);margin-bottom:4px}
+.fnl-card p{font-size:14px;color:#999;margin:0}
+
+/* ── STEPS ── */
+.steps{display:flex;flex-direction:column;gap:8px}
+.step{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.step-h{display:flex;align-items:center;gap:14px;padding:13px 18px;cursor:pointer;transition:background .2s}
+.step-h:hover{background:var(--card2)}
+.step-num{font-family:var(--fd);font-size:22px;color:var(--green);min-width:28px;text-shadow:var(--glow)}
+.step-ttl{font-size:14px;font-weight:600;color:var(--white);flex:1}
+.arr{color:var(--grey);font-size:11px;transition:transform .2s}
+.step.open .arr{transform:rotate(90deg)}
+.step-body{display:none;padding:0 18px 14px 60px;font-size:13px;color:#aaa;border-top:1px solid rgba(37,211,102,0.07);padding-top:12px;line-height:1.7}
+.step.open .step-body{display:block}
+.step-body strong{color:#ddd}
+.step-lbl{font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin:20px 0 10px}
+
+/* ── DO/DON'T ── */
+.dd-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.dd-col{border-radius:var(--r);overflow:hidden}
+.dd-hd{padding:10px 16px;font-family:var(--fd);font-size:17px;letter-spacing:.1em}
+.dd-hd.do{background:rgba(37,211,102,0.13);color:var(--green)}
+.dd-hd.dont{background:rgba(255,60,60,0.09);color:#ff6060}
+.dd-row{display:flex;gap:9px;padding:9px 14px;font-size:13px;color:#bbb;border-top:1px solid rgba(255,255,255,0.04);background:var(--card)}
+.dd-ic{flex-shrink:0;margin-top:1px;font-size:12px}
+.dd-col.do-col .dd-ic{color:var(--green)}
+.dd-col.dont-col .dd-ic{color:#ff6060}
+
+/* ── KPI TABLE ── */
+.kpi{width:100%;border-collapse:collapse;font-size:14px;border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.kpi thead tr{background:rgba(37,211,102,0.1)}
+.kpi th{padding:12px 16px;text-align:left;font-family:var(--fm);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--green);font-weight:600}
+.kpi td{padding:10px 16px;border-top:1px solid rgba(255,255,255,0.04);color:#bbb;vertical-align:top}
+.kpi td:first-child{color:#ddd;font-weight:500}
+.kpi td em{color:var(--green);font-style:normal;font-size:13px}
+.kpi tr:hover td{background:var(--card2)}
+
+/* ── SOURCES ── */
+.src-list{list-style:none}
+.src-list li{padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;color:var(--grey)}
+.src-list li a{color:var(--green);text-decoration:none}
+.src-list li a:hover{text-decoration:underline}
+
+/* ── CHANGELOG ── */
+.cl-row{display:flex;gap:16px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px}
+.cl-v{font-family:var(--fm);font-size:12px;color:var(--green);min-width:66px}
+.cl-d{color:var(--grey);min-width:100px;font-size:13px}
+.cl-n{color:#bbb}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid rgba(37,211,102,0.12);padding:48px 0;text-align:center;position:relative;z-index:1}
+.stamp{font-family:var(--fd);font-size:clamp(28px,6vw,60px);letter-spacing:.15em;color:rgba(37,211,102,0.1);margin-bottom:14px;line-height:1}
+.foot-meta{font-family:var(--fm);font-size:10px;color:var(--grey);letter-spacing:.1em;text-transform:uppercase}
+.foot-meta a{color:var(--green);text-decoration:none}
+
+@media(max-width:620px){
+  .cmp-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr}
+  .dd-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">WhiskeyRiverMedia — Strategy Playbook</div>
+  <h1 class="hero-head">
+    EMAIL &amp; SMS IS FOR <span class="dim">LISTS.</span><br>
+    <span class="lit">WHATSAPP IS FOR FANATICS.</span>
+  </h1>
+  <div class="hero-sub">WhatsApp Channel vs. Community — Setup Playbook</div>
+  <div class="meta">
+    <span>Zach Schaefer</span><span class="dot">·</span>
+    <span>WhiskeyRiverMedia</span><span class="dot">·</span>
+    <span>v1.0.0</span><span class="dot">·</span>
+    <span>2026-06-05</span><span class="dot">·</span>
+    <span style="color:var(--green)">Legacy, not clicks.</span>
+  </div>
+</div>
+
+<div class="hr-line"></div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-n">~98%</div>
+    <div class="stat-l">WhatsApp Open Rate</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n dim-num">~20%</div>
+    <div class="stat-l">Email Open Rate</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n" style="font-size:clamp(24px,5vw,40px);line-height:1.15">LIST<br><span style="color:var(--green);opacity:.6">→</span><br>ROOM</div>
+    <div class="stat-l">The Core Shift</div>
+  </div>
+</div>
+
+<!-- TL;DR -->
+<div class="tldr sec">
+  <div class="tldr-h">The One Idea</div>
+  <p>If your brand lives on email and SMS, you've been building a <strong>list</strong>. WhatsApp lets you build a <strong>room</strong>. That single shift — from a list you broadcast at, to a room people choose to walk into — is the #1 benefit email and SMS can't replicate. It's called <strong>belonging</strong>.</p>
+  <p>→ <strong>Community</strong> = your engagement layer. Two-way. Intimate. Where belonging gets built.<br>
+  → <strong>Channel</strong> = your broadcast layer. One-way. Unlimited. Where passive fans get the drops.<br>
+  They are <strong>complementary, not substitutes.</strong> Start with Community. Add Channel only when a trigger fires.</p>
+</div>
+
+<!-- TOC -->
+<div class="toc sec">
+  <div class="toc-t">Contents</div>
+  <ol class="toc-l">
+    <li><a href="#s1">Strategic Premise</a></li>
+    <li><a href="#s2">Channel vs Community</a></li>
+    <li><a href="#s3">The Architecture</a></li>
+    <li><a href="#s4">The 3 Triggers</a></li>
+    <li><a href="#s5">The Funnel</a></li>
+    <li><a href="#s6">Setup Steps</a></li>
+    <li><a href="#s7">Operating Rules</a></li>
+    <li><a href="#s8">KPIs</a></li>
+    <li><a href="#s9">Graduating to the API</a></li>
+    <li><a href="#s10">Sources</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<section class="sec" id="s1">
+  <div class="sh"><span class="sn">01 —</span><h2 class="st">The Strategic Premise — Why Belonging Wins</h2></div>
+  <p>Brands trained on email and SMS assume the win is <strong>reach</strong> — and the numbers look lopsided. Industry data puts WhatsApp open rates at <strong>~95–98%</strong> versus roughly <strong>~20–25%</strong> for email. But reach is the proof, not the point.</p>
+  <p>A 98% open rate is a <em style="font-style:italic;color:#ddd">moment</em>. A room is an <em style="font-style:italic;color:var(--green)">asset</em>. Every week the relationship deepens, members reinforce each other, and the audience grows more valuable instead of decaying like a stale mailing list.</p>
+  <div class="callout">
+    <strong>The #1 benefit, stated plainly:</strong> WhatsApp is the only channel where your audience opts <em style="color:var(--green);font-style:italic">into</em> belonging. Email treats people like a number. WhatsApp makes them feel like insiders. That feeling creates fanatics — and gives you a room where you can reward your best people first.
+  </div>
+</section>
+
+<!-- S2 -->
+<section class="sec" id="s2">
+  <div class="sh"><span class="sn">02 —</span><h2 class="st">Channel vs. Community at a Glance</h2></div>
+  <div class="cmp-grid">
+    <div class="cmp-card">
+      <div class="cmp-lbl">COMMUNITY <span class="tag">ENGAGEMENT LAYER</span></div>
+      <div class="cmp-row"><span class="ck">Direction</span><span class="cv">Multi-directional — members chat with each other and with you</span></div>
+      <div class="cmp-row"><span class="ck">Best for</span><span class="cv">Small groups, real-time conversation, building belonging</span></div>
+      <div class="cmp-row"><span class="ck">Cap</span><span class="cv"><span class="hi2">5,000</span> in announcement group; up to 50 linked sub-groups</span></div>
+      <div class="cmp-row"><span class="ck">Reach</span><span class="cv">Notifies everyone — high engagement, noisy at scale</span></div>
+      <div class="cmp-row"><span class="ck">Identity</span><span class="cv">Members see each other's names; admins see phone numbers</span></div>
+      <div class="cmp-row"><span class="ck">Interaction</span><span class="cv">Full chat, reactions, and threaded replies</span></div>
+      <div class="cmp-row"><span class="ck">Cost</span><span class="cv"><span class="hi2">Free</span> (consumer app)</span></div>
+    </div>
+    <div class="cmp-card hi">
+      <div class="cmp-lbl">CHANNEL <span class="tag">BROADCAST LAYER</span></div>
+      <div class="cmp-row"><span class="ck">Direction</span><span class="cv">One-directional — only you post. No member replies.</span></div>
+      <div class="cmp-row"><span class="ck">Best for</span><span class="cv">Large audiences, announcements, content drops</span></div>
+      <div class="cmp-row"><span class="ck">Cap</span><span class="cv"><span class="hi2">Unlimited</span> followers</span></div>
+      <div class="cmp-row"><span class="ck">Reach</span><span class="cv">Lives in Updates tab — less intrusive, lower urgency</span></div>
+      <div class="cmp-row"><span class="ck">Identity</span><span class="cv">Followers <span class="hi2">anonymous</span> to admin; can't see each other</span></div>
+      <div class="cmp-row"><span class="ck">Interaction</span><span class="cv">Emoji reactions only — no replies</span></div>
+      <div class="cmp-row"><span class="ck">Cost</span><span class="cv"><span class="hi2">Free</span> (consumer app)</span></div>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:14px"><strong>The real question is never "which one."</strong> It's what each one is for in your funnel.</div>
+</section>
+
+<!-- S3 -->
+<section class="sec" id="s3">
+  <div class="sh"><span class="sn">03 —</span><h2 class="st">The Architecture — Which One, When</h2></div>
+  <p><strong>Community = the trust layer.</strong> This is where relationships get built. Small, conversational, intentional. It is not your reach play — it's your trust play. Don't kill it when you add a Channel; the Community is where loyalty is manufactured.</p>
+  <p><strong>Channel = the reach layer.</strong> A clean, one-way feed for fans who want the drops but don't want to chat. Quieter. Passive. Unlimited.</p>
+  <div class="callout">
+    <strong>Default sequence:</strong> Build the Community first. Optimize for conversation and belonging, not size. Add the Channel only when a trigger fires. Adding a broadcast layer before you've filled the room just splits an audience you don't have yet.
+  </div>
+</section>
+
+<!-- S4 -->
+<section class="sec" id="s4">
+  <div class="sh"><span class="sn">04 —</span><h2 class="st">The 3 Triggers — When to Add a Channel</h2></div>
+  <p>Add a Channel the moment <strong>any one</strong> of these fires:</p>
+  <div class="trig-grid">
+    <div class="trig">
+      <div class="trig-n">01</div>
+      <div class="trig-body">
+        <h3>COMMUNITY CROSSES ~200–300 MEMBERS</h3>
+        <p>Chat fatigue sets in. Member-to-member noise buries your announcements. A Channel gives you a clean broadcast lane — "Monaco prediction is live" — without it drowning in chatter.</p>
+      </div>
+    </div>
+    <div class="trig">
+      <div class="trig-n">02</div>
+      <div class="trig-body">
+        <h3>YOU WANT A PASSIVE TIER</h3>
+        <p>Some fans want the content but not the conversation. A Channel is the quieter alternative — they subscribe, get the drops, never have to engage with other members.</p>
+      </div>
+    </div>
+    <div class="trig">
+      <div class="trig-n">03</div>
+      <div class="trig-body">
+        <h3>CONTENT FREQUENCY JUSTIFIES BROADCAST</h3>
+        <p>Posting weekly? A Channel is overkill. Posting daily race-weekend content (FP3 → quali → race → debrief)? Subscribers need a clean dedicated feed. High cadence earns the Channel layer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S5 -->
+<section class="sec" id="s5">
+  <div class="sh"><span class="sn">05 —</span><h2 class="st">The Funnel — Predict → Gate → Room → Reward</h2></div>
+  <p>The reusable acquisition-to-loyalty architecture. Build it once, run it forever.</p>
+  <div class="fnl">
+    <div class="fnl-step">
+      <div class="fnl-lft"><div class="fnl-dot">1</div><div class="fnl-line"></div></div>
+      <div class="fnl-card"><h3>HOOK / ACTION</h3><p>A reason to engage — a prediction, a quiz, inside intel, a freebie. Something so valuable people have to act.</p></div>
+    </div>
+    <div class="fnl-step">
+      <div class="fnl-lft"><div class="fnl-dot">2</div><div class="fnl-line"></div></div>
+      <div class="fnl-card"><h3>GATE</h3><p>Capture contact via email or landing page in exchange for a reward — a token, a code, first-access.</p></div>
+    </div>
+    <div class="fnl-step">
+      <div class="fnl-lft"><div class="fnl-dot">3</div><div class="fnl-line"></div></div>
+      <div class="fnl-card"><h3>ROOM</h3><p>Invite into the WhatsApp Community. A second token rewards the join and confirms intent. They're insiders now, not subscribers.</p></div>
+    </div>
+    <div class="fnl-step">
+      <div class="fnl-lft"><div class="fnl-dot">4</div></div>
+      <div class="fnl-card"><h3>REWARD LOOP</h3><p>A recurring reason to return — weekly intel, exclusive drops, inside access. The loop keeps the room alive and compounds the relationship.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- S6 -->
+<section class="sec" id="s6">
+  <div class="sh"><span class="sn">06 —</span><h2 class="st">Setup Steps</h2></div>
+  <p style="font-size:13px;color:#666;margin-bottom:18px">⚠️ Channels and Communities can only be <strong style="color:#ddd">created</strong> on iPhone or Android. Manage and post from WhatsApp Web after. Keep your app updated. Tap each step to expand.</p>
+
+  <div class="step-lbl">Part A — Create a WhatsApp Community</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-h" onclick="this.parentElement.classList.toggle('open')">
+        <span class="step-num">1</span><span class="step-ttl">Open the Communities tab</span><span class="arr">▶</span>
+      </div>
+      <div class="step-body">Open WhatsApp → tap the <strong>Communities</strong> tab (Android: top of chat list or menu; iOS: bottom navigation).</div>
+    </div>
+    <div class="step">
+      <div class="step-h" onclick="this.parentElement.classList.toggle('open')">
+        <span class="step-num">2</span><span class="step-ttl">Tap New Community</span><span class="arr">▶</span>
+      </div>
+      <div class="step-body">Tap <strong>New Community</strong>. Enter a name, description, and profile photo. Tap the arrow / <strong>Next</strong>.</div>
+    </div>
+    <div class="step">
+      <div class="step-h" onclick="this.parentElement.classList.toggle('open')">
+        <span class="step-num">3</span><span class="step-ttl">WhatsApp auto-creates your structure</span><span class="arr">▶</span>
+      </div>
+      <div class="step-body">WhatsApp automatically creates an <strong>Announcement group</strong> (admin-only posting, broadcasts to all members) and a <strong>General group</strong>. This is your core structure.</div>
+    </div>
+    <div class="step">
+      <div class="step-h" onclick="this.parentElement.classList.toggle('open')">
+        <span class="step-num">4</span><span class="step-ttl">Add groups</span><span class="arr">▶</span>
+      </div>
+      <div class="step-body">Tap <strong>Add Groups</strong> → <strong>Create New Group</strong> (fresh start) or <strong>Add Existing Group</strong> (links a group you already admin). ⚠️ Adding an existing group migrates all its members — get consent first.</div>
+    </div>
+    <div class="step">
+      <div class="step-h" onclick="this.parentElement.classList.toggle('open')">
+        <span class="step-num">5</span><span class="step-ttl">Share your invite link or QR code</span><span class="arr">▶</span>
+      </div>
+      <div class="step-body">New members land in the Announcement group first, then browse sub-groups. Start simple: Announcement + one General group. Add topic sub-groups only as the audience scales.</div>
+    </div>
+  </div>
+
+  <div class="step-lbl" style="margin-top:24px">Part B — Create a WhatsApp Channel</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-h" onclick="this.parentElement.classList.toggle('open')">
+        <span class="step-num">1</span><span class="step-ttl">Open the Updates tab</span><span class="arr">▶</span>
+      </div>
+      <div class="step-body">Open WhatsApp → tap the <strong>Updates</strong> tab (same tab where Status updates live).</div>
+    </div>
+    <div class="step">
+      <div class="step-h" onclick="this.parentElement.classList.toggle('open')">
+        <span class="step-num">2</span><span class="step-ttl">Create channel</span><span class="arr">▶</span>
+      </div>
+      <div class="step-body">Tap the <strong>+</strong> icon near Channels → <strong>Create channel</strong>. Enter a name, description, and icon — these can be set now or edited later.</div>
+    </div>
+    <div class="step">
+      <div class="step-h" onclick="this.parentElement.classList.toggle('open')">
+        <span class="step-num">3</span><span class="step-ttl">Post your intro + share the link</span><span class="arr">▶</span>
+      </div>
+      <div class="step-body">Your first post should set the expectation: what followers get and how often. Then share your channel link (<strong style="color:var(--green);font-family:var(--fm)">whatsapp.com/channel/...</strong>) via Status, bio, Community, and other platforms. You stay anonymous — followers see the channel name and icon, never your number.</div>
+    </div>
+  </div>
+</section>
+
+<!-- S7 -->
+<section class="sec" id="s7">
+  <div class="sh"><span class="sn">07 —</span><h2 class="st">Operating Rules</h2></div>
+  <div class="dd-grid">
+    <div class="dd-col do-col">
+      <div class="dd-hd do">✓ DO</div>
+      <div class="dd-row"><span class="dd-ic">✓</span>Treat the Community as the trust layer. Reward people for being inside it.</div>
+      <div class="dd-row"><span class="dd-ic">✓</span>Keep one consistent broadcast voice in the Announcement group and Channel.</div>
+      <div class="dd-row"><span class="dd-ic">✓</span>Set expectations in the first post — what they get, how often.</div>
+      <div class="dd-row"><span class="dd-ic">✓</span>Use a fixed cadence. A predictable drop builds the return habit.</div>
+      <div class="dd-row"><span class="dd-ic">✓</span>Verify every stat and claim before broadcasting. Legacy, not clicks.</div>
+    </div>
+    <div class="dd-col dont-col">
+      <div class="dd-hd dont">✗ DON'T</div>
+      <div class="dd-row"><span class="dd-ic">✗</span>Kill the Community when you add a Channel — they do different jobs.</div>
+      <div class="dd-row"><span class="dd-ic">✗</span>Add a Channel before a trigger fires. You'll split a room you haven't filled.</div>
+      <div class="dd-row"><span class="dd-ic">✗</span>Broadcast like it's an SMS blast. Earn the notification.</div>
+      <div class="dd-row"><span class="dd-ic">✗</span>Expect Channel analytics or segmentation. The consumer app doesn't offer them.</div>
+      <div class="dd-row"><span class="dd-ic">✗</span>Add existing groups without consent — it migrates everyone automatically.</div>
+    </div>
+  </div>
+</section>
+
+<!-- S8 -->
+<section class="sec" id="s8">
+  <div class="sh"><span class="sn">08 —</span><h2 class="st">KPIs to Watch</h2></div>
+  <table class="kpi">
+    <thead><tr><th>Layer</th><th>Primary Metric</th><th>Why It Matters</th></tr></thead>
+    <tbody>
+      <tr><td>Community</td><td><em>Active participants / week</em></td><td>Belonging is measured by participation, not headcount</td></tr>
+      <tr><td>Community</td><td><em>Return rate to app/content</em></td><td>Confirms the reward loop is working</td></tr>
+      <tr><td>Channel</td><td><em>Follower growth rate</em></td><td>Reach-tier health</td></tr>
+      <tr><td>Channel</td><td><em>Reactions per post</em></td><td>The only native engagement signal available</td></tr>
+      <tr><td>Funnel</td><td><em>Gate → Room conversion %</em></td><td>How well you're moving subscribers into the owned room</td></tr>
+      <tr><td>Funnel</td><td><em>Reward-loop retention</em></td><td>Whether the room compounds or decays</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- S9 -->
+<section class="sec" id="s9">
+  <div class="sh"><span class="sn">09 —</span><h2 class="st">When to Graduate to the WhatsApp Business API</h2></div>
+  <p>The consumer-app approach is <strong>free, manual, and relationship-first</strong> — ideal for building the tribe. But it has honest ceilings: no automation, no behavioral segmentation, no real analytics, and manual member management.</p>
+  <div class="callout">
+    <strong>Graduate to the WhatsApp Business API</strong> (via a Business Solution Provider) when you need: automated flows (welcome series, cart recovery, reminders), segmentation by purchase history or behavior, real analytics, or volume that overwhelms manual management. The API is paid — per-conversation pricing. Build belonging on the consumer app first. Graduate when the operational load demands it.
+  </div>
+</section>
+
+<!-- S10 -->
+<section class="sec" id="s10">
+  <div class="sh"><span class="sn">10 —</span><h2 class="st">Sources</h2></div>
+  <p style="font-size:13px;color:#555;margin-bottom:14px">Verified 2026-06-05. WhatsApp ships changes frequently — re-verify before major decisions.</p>
+  <ul class="src-list">
+    <li>WhatsApp Communities guide &amp; limits — <a href="https://getkanal.com/blog/whatsapp-communities-guide" target="_blank">getkanal.com</a></li>
+    <li>Channel vs Community comparison — <a href="https://chatbot.team/whatsapp/channel/" target="_blank">chatbot.team</a></li>
+    <li>Group vs Community vs Channel (2026) — <a href="https://www.digipixinc.com/technology/whatsapp-group-vs-community-vs-channel/" target="_blank">digipixinc.com</a></li>
+    <li>WhatsApp vs Email open rates — <a href="https://chatarmin.com/en/blog/whats-app-vs-email" target="_blank">chatarmin.com</a></li>
+    <li>WhatsApp business statistics (2026) — <a href="https://wizmessage.com/blog/whatsapp-business-statistics" target="_blank">wizmessage.com</a></li>
+    <li>How to create a Channel — <a href="https://chatarmin.com/en/blog/create-whatsapp-channel" target="_blank">chatarmin.com</a> · <a href="https://sinch.com/blog/how-to-create-a-whatsapp-channel/" target="_blank">sinch.com</a></li>
+  </ul>
+  <div style="margin-top:16px;padding:10px 14px;background:var(--card);border-radius:var(--r);font-size:12px;color:#444">Open/engagement figures are industry-reported aggregates. Treat as directional, not guaranteed.</div>
+</section>
+
+<!-- CHANGELOG -->
+<section class="sec">
+  <div class="sh"><span class="sn">11 —</span><h2 class="st">Changelog</h2></div>
+  <div class="cl-row">
+    <span class="cl-v">v1.0.0</span>
+    <span class="cl-d">2026-06-05</span>
+    <span class="cl-n">Initial publication — premise, comparison, architecture, 3 triggers, funnel, setup steps, KPIs, API graduation path, sources.</span>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="wrap">
+    <div class="stamp">LEGACY NOT CLICKS</div>
+    <div class="foot-meta">
+      WhiskeyRiverMedia · Zach Schaefer ·
+      <a href="https://github.com/PolePosition1/whiskeyriver-playbooks" target="_blank">github.com/PolePosition1/whiskeyriver-playbooks</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis') });
+}, {threshold:0.07});
+document.querySelectorAll('.sec').forEach(el => {
+  obs.observe(el);
+  const r = el.getBoundingClientRect();
+  if(r.top < window.innerHeight) el.classList.add('vis');
+});
+</script>
+</body>
+</html>
